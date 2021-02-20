@@ -1,0 +1,96 @@
+package com.hoaxify.hoaxify;
+
+import static org.assertj.core.api.Assertions.assertThat;
+
+import org.junit.FixMethodOrder;
+import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.runner.RunWith;
+import org.junit.runners.MethodSorters;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
+import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.junit4.SpringRunner;
+
+import com.hoaxify.hoaxify.user.User;
+import com.hoaxify.hoaxify.user.UserRepository;
+
+/*
+ * Integration Tests:
+ * Application test is tested as whole package
+ * @author jaime
+ */
+
+//We will use Spring context in this class
+//So we need to include corresponding runner.
+@RunWith(SpringRunner.class)
+@SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT) //use different port for testing purposes
+@ActiveProfiles("test") //this will allow us to use test databases when running tests.
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
+public class UserControllerTest {
+
+	//setting users url
+	private static final String API_1_0_USERS = "/api/1.0/users";
+	
+	/*
+	 * HTTP Client-
+	 * Spring will create application context.
+	 * It will contain an instance of test rest template
+	 * We can tell spring to inject to current class
+	 * */
+	@Autowired
+	TestRestTemplate testRestTemplate;
+	
+	@Autowired
+	UserRepository userRepository;
+	
+
+	//Empty database to that tests will be independent of each other
+	@BeforeEach
+	public void cleanup()
+	{
+		userRepository.deleteAll();
+	}
+	
+	/*Valid User name:
+	 * username: at least 4 chars
+	 * display-name: at least 4 chars
+	 * password: with at least 1 uppercase, 1 lowercase, 1 number and at least 8 chars*
+	 */
+	@Test
+	public void postUser_whenUserIsValid_receiveOk()
+	{
+		User user = createValidUser();
+		
+		//Get a status from posting user
+		ResponseEntity<Object> response = testRestTemplate.postForEntity(API_1_0_USERS,user, Object.class);
+		
+		//Making sure the status was 200 - OK
+		assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+	}
+
+
+	@Test
+	public void postUser_whenUserIsValid_userSavedToDatabase()
+	{
+		User user = createValidUser();
+		//POST a test user into api
+		testRestTemplate.postForEntity(API_1_0_USERS,user, Object.class);
+		//Confirm user is stored in database
+		assertThat(userRepository.count()).isEqualTo(1);
+		
+	}
+	
+	private User createValidUser() {
+		//Create a dummy user with attributes
+		User user = new User();
+		user.setUsername("test-user");
+		user.setDisplayName("test-display");
+		user.setPassword("P4ssword");
+		return user;
+	}
+}

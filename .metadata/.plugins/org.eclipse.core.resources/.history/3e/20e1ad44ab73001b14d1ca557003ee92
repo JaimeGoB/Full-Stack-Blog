@@ -1,0 +1,56 @@
+package com.hoaxify.hoaxify;
+
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
+import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.junit4.SpringRunner;
+
+import com.hoaxify.hoaxify.user.User;
+
+/*
+ * Integration Tests:
+ * Application test is tested as whole package
+ * @author jaime
+ */
+
+//We will use Spring context in this class
+//So we need to include corresponding runner.
+@RunWith(SpringRunner.class)
+@SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT) //use different port for testing purposes
+@ActiveProfiles("test") //this will allow us to use test databases when running tests.
+public class UserControllerTest {
+
+	/*
+	 * HTTP Client-
+	 * Spring will create application context.
+	 * It will contain an instance of test rest template
+	 * We can tell spring to inject to current class
+	 * */
+	@Autowired
+	TestRestTemplate testRestTemplate;
+	
+	/*Valid User name:
+	 * username: at least 4 chars
+	 * display-name: at least 4 chars
+	 * password: with at least 1 uppercase, 1 lowercase, 1 number and at least 8 chars*
+	 */
+	@Test
+	public void postUser_whenUserIsValid_receiveOk()
+	{
+		User user = new User();
+		user.setUsername("test-user");
+		user.setDisplayName("test-display");
+		user.setPassword("P4ssword");
+		
+		ResponseEntity<Object> response = testRestTemplate.postForEntity("/api/1.0/users",user, Object.class);
+		
+		assertThat(response.getStatusCode()).isEqualto(HttpStatus.OK);
+	}
+	
+}

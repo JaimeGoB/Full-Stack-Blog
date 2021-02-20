@@ -1,0 +1,13 @@
+package com.hoaxify.hoaxify.user;
+
+import org.springframework.web.bind.annotation.RestController;
+
+/*
+ * We want to tell spring to be responsible for http requests:
+ * Using this annotation we will tell Spring to use 
+ * this class will handle http requests for certain urls.
+ * */
+@RestController
+public class UserController {
+
+}

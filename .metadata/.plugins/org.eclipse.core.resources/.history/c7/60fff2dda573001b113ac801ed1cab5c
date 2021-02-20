@@ -1,0 +1,20 @@
+package com.hoaxify.hoaxify;
+
+import org.junit.runner.RunWith;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
+import org.springframework.test.context.junit4.SpringRunner;
+
+/*
+ * Integration Tests:
+ * Application test is tested as whole package
+ * @author jaime
+ */
+
+//We will use Spring context in this class
+//So we need to include corresponding runner.
+@RunWith(SpringRunner.class)
+@SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT) //use different port for testing purposes
+public class UserControllerTest {
+
+}

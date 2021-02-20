@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?><testrun name="UserControllerTest" project="backend_hoaxify" tests="3" started="3" failures="0" errors="0" ignored="0">
+  <testsuite name="com.hoaxify.hoaxify.UserControllerTest" time="0.509" displayname="UserControllerTest" uniqueid="[engine:junit-vintage]/[runner:com.hoaxify.hoaxify.UserControllerTest]">
+    <testcase name="postUser_whenUserIsValid_userSavedToDatabase" classname="com.hoaxify.hoaxify.UserControllerTest" time="0.471" displayname="postUser_whenUserIsValid_userSavedToDatabase" uniqueid="[engine:junit-vintage]/[runner:com.hoaxify.hoaxify.UserControllerTest]/[test:postUser_whenUserIsValid_userSavedToDatabase(com.hoaxify.hoaxify.UserControllerTest)]"/>
+    <testcase name="postUser_whenUserIsValid_receiveOk" classname="com.hoaxify.hoaxify.UserControllerTest" time="0.024" displayname="postUser_whenUserIsValid_receiveOk" uniqueid="[engine:junit-vintage]/[runner:com.hoaxify.hoaxify.UserControllerTest]/[test:postUser_whenUserIsValid_receiveOk(com.hoaxify.hoaxify.UserControllerTest)]"/>
+    <testcase name="postUser_whenUserIsValid_receivedSuccessMessage" classname="com.hoaxify.hoaxify.UserControllerTest" time="0.014" displayname="postUser_whenUserIsValid_receivedSuccessMessage" uniqueid="[engine:junit-vintage]/[runner:com.hoaxify.hoaxify.UserControllerTest]/[test:postUser_whenUserIsValid_receivedSuccessMessage(com.hoaxify.hoaxify.UserControllerTest)]"/>
+  </testsuite>
+</testrun>

@@ -1,0 +1,24 @@
+package com.hoaxify.hoaxify.user;
+
+import org.springframework.stereotype.Service;
+
+//Create an instance of this class
+@Service
+public class UserService {
+	
+	UserRepository userRepository;
+
+	//Constructor injection - makes class easier to test
+	public UserService(UserRepository userRepository) 
+	{
+		super();
+		this.userRepository = userRepository;
+	}
+	
+	public User save(User user)
+	{
+		return userRepository.save(user);
+	}
+}
+
+

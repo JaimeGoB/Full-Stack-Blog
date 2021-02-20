@@ -1,0 +1,8 @@
+package com.hoaxify.hoaxify.user;
+
+public class User {
+
+	private String username;
+	private String displayName;
+	private String password;
+}

@@ -1,0 +1,13 @@
+package com.hoaxify;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class BackendHoaxifyApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(BackendHoaxifyApplication.class, args);
+	}
+
+}
